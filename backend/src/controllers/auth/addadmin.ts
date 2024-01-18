@@ -1,0 +1,64 @@
+import { Request, Response } from "express";
+import connectMongo from "../../../connectMongo";
+import userModel from "../../models/userModel";
+
+type UserType = {
+  id: number;
+  name: string;
+  email: string;
+  password: string;
+  citizenshipNumber: string;
+  admin: boolean;
+  verified: boolean;
+  candidate: boolean;
+};
+
+const users: UserType[] = [
+  {
+    id: 1,
+    name: "John",
+    citizenshipNumber: "9860777906",
+    email: "john@gmail.com",
+    password: "$2b$10$6sdkothEwAguhA0FytsGF.gcWPmTDB5hosif6rGX5FFJK8PdBgRHu",
+    admin: true,
+    verified: true,
+    candidate: false,
+  },
+  {
+    id: 2,
+    name: "Liza",
+    citizenshipNumber: "9860777907",
+    email: "liza@gmail.com",
+    password: "$2b$10$70yLw0dPhAD0py/iiGUInO7kklGUmbMfa5BmXKGCXEID1ufTsqSQ6",
+    admin: false,
+    verified: true,
+    candidate: false,
+
+  },
+  {
+    id: 3,
+    name: "Ben",
+    citizenshipNumber: "9860777908",
+    email: "ben@gmail.com",
+    password: "$2b$10$1DsQFSqUs3ufyDDRBd9wYuU5i9ihbnYR4GCYJsI3IzGXamwFWnr4S",
+    admin: false,
+    verified: true,
+    candidate: false,
+
+  },
+];
+
+
+export default async (req: Request, res: Response) => {
+  
+  try {
+    await connectMongo();
+    for (const user of users) { 
+        await userModel.create(user);
+    }
+    return res.status(200).send({ message: "User created successfully." });
+  } catch (error) {
+    return res.status(500).send({ error });
+  }
+
+};
