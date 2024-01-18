@@ -18,6 +18,11 @@ const Start = () => {
   const [error, setError] = useState<string>("");
   const [name, setName] = useState<string>("");
 
+    const [startDate, setStartDate] = useState<Date | null>(null);
+    // const [startDate, setStartDate] = useState(new Date("2024-01-20T12:00:00"));
+    const [endDate, setEndDate] = useState<Date | null>(null);
+    const [electionStarted, setElectionStarted] = useState(false);
+
 
   useEffect(() => {
     axios
@@ -28,8 +33,15 @@ const Start = () => {
       .catch((error) => console.log({ error }));
   }, []);
 
+  const handleScheduleElection = () => {
+    // You can perform any additional checks or actions before scheduling
+    console.log("Election scheduled!");
+  };
+
+
 
   return (
+    <>
     <div className="form-container">
       {error !== "" ? <div className="error-message">{error}</div> : null}
 
@@ -153,14 +165,54 @@ const Start = () => {
               </div>
             </div>
 
+            <div className="input-container">
+              <label htmlFor="startDate">Start Date:</label>
+              <input
+                id="startDate"
+                type="datetime-local"
+                {...getFieldProps("startDate")}
+                onChange={(e) => setStartDate(new Date(e.target.value))}
+              />
+            </div>
+
+            <div className="input-container">
+              <label htmlFor="endDate">End Date:</label>
+              <input
+                id="endDate"
+                type="datetime-local"
+                {...getFieldProps("endDate")}
+                onChange={(e) => setEndDate(new Date(e.target.value))}
+              />
+            </div>
+
+            <div className="input-container">
+              <button
+                className="login-button button-primary"
+                type="button"
+                onClick={handleScheduleElection}
+              >
+                Schedule Election
+              </button>
+            </div>
+
 
             <button className="login-button button-primary" type="submit">
-              Start Election
+              Start Election Now
             </button>
           </form>
         )}
       </Formik>
     </div>
+
+      <div>
+      <h1>Start Election</h1>
+      {electionStarted ? (
+        <p>Election has started!</p>
+      ) : (
+        <p>Waiting for the start date...</p>
+      )}
+      </div>
+      </>
   );
 };
 
