@@ -59,7 +59,6 @@ const Profile = (props: RouteProps) => {
         setSelectedFile(file);
         setImageData(base64Data || "");
 
-        handleFileUpload();
       };
   
       // Read the selected file as a data URL
@@ -72,6 +71,7 @@ const Profile = (props: RouteProps) => {
   const handleFileUpload = async () => {
     console.log("Profile...")
     if (!selectedFile) {
+      alert("Please select image")
       console.error("No file selected");
       return;
     }
@@ -105,10 +105,8 @@ const Profile = (props: RouteProps) => {
         {currentUser?.profileImage ?
             <img src={currentUser?.profileImage} alt="profile image"  height={100} width={100}
             style={{ borderRadius: '50%', objectFit: 'cover'}}/>
-
           :(
           <i className="bi bi-person-circle"></i>
-
           )}
         </div>
 
