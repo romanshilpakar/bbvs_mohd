@@ -32,19 +32,19 @@ export default () => {
         { name: "Home", link: "/" },
         { name: "Verify Voters", link: "/users" },
         { name: "Verify Candidates", link: "/candidates" },
-        { name: "All Election", link: "/previouselection" },
+        // { name: "All Election", link: "/previouselection" },
         { name: "Profile", link: "/profile" },
       ];
 
       const userMenu = [
         { name: "Polls", link: "/" },
-        { name: "All Election", link: "/previouselection" },
+        // { name: "All Election", link: "/previouselection" },
         { name: "Profile", link: "/profile" },
       ];
 
       const candidateMenu = [
         { name: "Polls", link: "/" },
-        { name: "All Election", link: "/previouselection" },
+        // { name: "All Election", link: "/previouselection" },
         { name: "Profile", link: "/profile" },
       ];
 
@@ -58,7 +58,7 @@ export default () => {
               <Route path="/candidates" element={<AdminCandidatesPage />} />
               <Route path="/verify/:name/:id" element={<AdminVerifyPage />} />
               <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/previouselection" element={<PreviousElection />} />
+              {/* <Route path="/previouselection" element={<PreviousElection />} /> */}
 
             </Routes>
           </Default>
@@ -70,7 +70,7 @@ export default () => {
             <Routes>
               <Route path="/" element={<UserPollsPage />} />
               <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/previouselection" element={<PreviousElection />} />
+              {/* <Route path="/previouselection" element={<PreviousElection />} /> */}
 
             </Routes>
           </Default>
@@ -82,7 +82,7 @@ export default () => {
             <Routes>
               <Route path="/" element={<UserPollsPage />} />
               <Route path="/profile" element={<ProfilePage  />} />
-              <Route path="/previouselection" element={<PreviousElection />} />
+              {/* <Route path="/previouselection" element={<PreviousElection />} /> */}
             </Routes>
           </Default>
         );

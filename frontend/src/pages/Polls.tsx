@@ -11,6 +11,7 @@ const Polls = () => {
     axios
       .get("/polls/")
       .then((res) => {
+        console.log("data:",res.data)
         setData(res.data);
         setLoading(false);
       })

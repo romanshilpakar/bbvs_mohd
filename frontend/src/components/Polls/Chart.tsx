@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import axios from "../../axios";
 
 interface ChartProps {
@@ -8,8 +8,29 @@ interface ChartProps {
   userName?: string;
 }
 
+interface CandidateProfile {
+  profileImages?: {
+    [key: string]: string;
+  };
+}
+
 const Chart = (props: ChartProps) => {
   const votes = props.votes;
+  const [profiles, setProfiles] = useState<CandidateProfile | null>(null)
+  // console.log("profiles:",profiles)
+
+
+
+  useEffect(() => {
+    axios
+      .get("/polls/")
+      .then((res) => {
+        console.log("data:",res.data)
+        setProfiles(res.data)
+        
+      })
+      .catch((err) => console.log({ err }));
+  }, []);
 
   const getButtons = () => {
     const names = [];
@@ -44,9 +65,18 @@ const Chart = (props: ChartProps) => {
     const names = [];
 
     for (const name in votes) {
+      const candidateProfile = profiles?.profileImages?.[name];
       names.push(
         <div key={name} className="name-wrapper text-normal">
-          {name}
+         <div>{name}</div> 
+          {candidateProfile ? 
+          <img src={candidateProfile} alt="profile image"  height={60} width={60}
+          style={{ borderRadius: '50%', objectFit: 'cover'}}/>
+          :(
+            // <i className="bi bi-person-circle"></i>
+            <i className="bi bi-person-circle" style={{ fontSize: '60px', width: '60px', height: '60px' }}></i>
+          )
+           }
         </div>
       );
     }
