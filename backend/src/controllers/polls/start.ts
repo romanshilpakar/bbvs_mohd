@@ -1,6 +1,22 @@
 import { Request, Response } from "express";
 import * as yup from "yup";
 import ElectionContract, { web3 } from "../../web3";
+import mongoose from "mongoose";
+
+// Define the schema for the election data
+const ElectionSchema = new mongoose.Schema({
+  name: String,
+  description: String,
+  votes: Object,
+  profileImages: Object,
+  electionStarted: Boolean,
+  startDate:Date,
+  endDate:Date,
+
+});
+
+// Check if the model has already been compiled before compiling it again
+const ElectionModel = mongoose.models.Election || mongoose.model("Election", ElectionSchema);
 
 const schema = yup.object({
   body: yup.object({
@@ -43,6 +59,11 @@ export default async (req: Request, res: Response) => {
   await instance.addCandidate("NOTA", {
     from: accounts[0],
   });
+
+  const election = new ElectionModel({ name: req.body.name, description : req.body.description , electionStarted: false ,startDate:req.body.startDate, endDate: req.body.endDate });
+  await election.save();
+
+  
 
   return res.send(req.body);
 };

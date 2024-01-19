@@ -109,10 +109,12 @@ const Profile = (props: RouteProps) => {
           <i className="bi bi-person-circle"></i>
           )}
         </div>
-
         <button onClick={handleFileButtonClick} className="button-primary">
           Select Image
         </button>
+        
+
+
         <input
           type="file"
           accept="image/*"
@@ -120,8 +122,8 @@ const Profile = (props: RouteProps) => {
           ref={(el) => (fileInputRef.current = el)}
           style={{ display: 'none' }} // Hide the file input
         />
-       
-            <button onClick={handleFileUpload} className="button-primary">
+
+            <button onClick={handleFileUpload} className="button-primary" style={{ marginTop: '10px' }}>
             {currentUser?.profileImage ? (
             "Change Profile Picture"
             )
@@ -130,6 +132,7 @@ const Profile = (props: RouteProps) => {
               "Add Profie Picture"
             )}
             </button>
+          
 
         <div className="text-normal username">Name: {authContext.name}</div>
         <p>Citizenship Number : {authContext.citizenshipNumber}</p>

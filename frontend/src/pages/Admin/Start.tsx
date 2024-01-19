@@ -69,7 +69,7 @@ const Start = () => {
 
           if (candidatesError === "") {
             axios
-              .post("/polls/start", { name, description, candidates })
+              .post("/polls/start", { name, description, candidates,startDate,endDate })
               .then((_) => {
                 window.location.reload();
               })
@@ -204,14 +204,14 @@ const Start = () => {
       </Formik>
     </div>
 
-      <div>
+      {/* <div>
       <h1>Start Election</h1>
       {electionStarted ? (
         <p>Election has started!</p>
       ) : (
         <p>Waiting for the start date...</p>
       )}
-      </div>
+      </div> */}
       </>
   );
 };
