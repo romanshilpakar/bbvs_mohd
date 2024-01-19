@@ -6,12 +6,18 @@ interface ChartProps {
   enableVote?: boolean;
   userId?: number;
   userName?: string;
+  electionStarted?:boolean;
+  startDate?:Date;
+  endDate?:Date;
 }
 
 interface CandidateProfile {
   profileImages?: {
     [key: string]: string;
   };
+  electionStarted?:boolean;
+  startDate?:Date;
+  endDate?:Date;
 }
 
 const Chart = (props: ChartProps) => {
@@ -25,7 +31,7 @@ const Chart = (props: ChartProps) => {
     axios
       .get("/polls/")
       .then((res) => {
-        console.log("data:",res.data)
+        // console.log("data:",res.data)
         setProfiles(res.data)
         
       })
@@ -130,9 +136,16 @@ const Chart = (props: ChartProps) => {
       <div className="bars-container">{getBars()}</div>
       <div className="names-wrapper">{getNames()}</div>
 
-      {props.enableVote ? (
+      {props.enableVote && profiles?.electionStarted ? (
         <div className="buttons-wrapper">{getButtons()}</div>
-      ) : null}
+      ) : (
+        null
+        // <div style={{ marginTop: '10px' }}>Election starts on {profiles?.startDate}</div>
+      )}
+
+      {/* {!profiles?.electionStarted &&
+      <div style={{ marginTop: '10px' }}>Election ends on {profiles?.endDate}</div>
+      } */}
     </div>
   );
 };

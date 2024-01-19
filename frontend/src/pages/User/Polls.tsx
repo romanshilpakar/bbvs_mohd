@@ -6,13 +6,14 @@ import Panel from "../../components/Polls/Panel";
 import Running from "../../components/Polls/Running";
 import Waiting from "../../components/Waiting";
 import { AuthContext } from "../../contexts/Auth";
+import { convertToHumanReadable } from "../../utils/helper";
 
 const User = () => {
   const [voteState, setVoteStatus] = useState<
     "finished" | "running" | "not-started" | "checking"
   >("checking");
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState({ name: "", description: "", votes: {} });
+  const [data, setData] = useState({ name: "", description: "", votes: {},electionStarted:false,startDate:Date,endDate:Date,completed:false });
   const [votable, setVotable] = useState("");
 
   const authContext = useContext(AuthContext);
@@ -65,6 +66,16 @@ const User = () => {
           userName={authContext.name}
           votes={data.votes}
         />
+        {!data.electionStarted && data.startDate &&
+      <div style={{ marginTop: '10px' }}>Election starts on {""}
+      {convertToHumanReadable(data.startDate)}
+      </div>
+        }
+       {data.electionStarted && data.endDate && !data.completed &&
+       <div style={{ marginTop: '10px' }}>Election ends on {""}
+       {convertToHumanReadable(data.endDate)}
+       </div>
+      }
       </>
     </Panel>
   );

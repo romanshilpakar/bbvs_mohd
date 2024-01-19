@@ -8,6 +8,12 @@ const ElectionSchema = new mongoose.Schema({
   name: String,
   description: String,
   votes: Object,
+  profileImages: Object,
+  electionStarted: Boolean,
+  startDate:Date,
+  endDate:Date,
+  completed:Boolean,
+
 });
 
 // Check if the model has already been compiled
@@ -16,7 +22,7 @@ const ElectionModel = mongoose.models.Election || mongoose.model("Election", Ele
 export default async (req: Request, res: Response) => {
   await connectMongo();
 
-  const elections = await ElectionModel.find({}).exec();
+  const elections = await ElectionModel.find({completed:true}).exec();
 
   return res.json(elections);
 };

@@ -11,6 +11,11 @@ const ElectionSchema = new mongoose.Schema({
   description: String,
   votes: Object,
   profileImages: Object,
+  electionStarted: Boolean,
+  startDate:Date,
+  endDate:Date,
+  completed:Boolean,
+
 });
 
 // Check if the model has already been compiled before compiling it again

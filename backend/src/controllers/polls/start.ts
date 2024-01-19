@@ -12,6 +12,7 @@ const ElectionSchema = new mongoose.Schema({
   electionStarted: Boolean,
   startDate:Date,
   endDate:Date,
+  completed:Boolean,
 
 });
 
@@ -60,7 +61,7 @@ export default async (req: Request, res: Response) => {
     from: accounts[0],
   });
 
-  const election = new ElectionModel({ name: req.body.name, description : req.body.description , electionStarted: false ,startDate:req.body.startDate, endDate: req.body.endDate });
+  const election = new ElectionModel({ name: req.body.name, description : req.body.description , electionStarted: req.body.electionStarted ,startDate:req.body.startDate, endDate: req.body.endDate });
   await election.save();
 
   

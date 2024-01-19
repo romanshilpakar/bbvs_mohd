@@ -34,9 +34,14 @@ const Start = () => {
   }, []);
 
   const handleScheduleElection = () => {
-    // You can perform any additional checks or actions before scheduling
     console.log("Election scheduled!");
+    setElectionStarted(false)
+
   };
+
+  const handleStartElectionNow = () =>{
+    setElectionStarted(true)
+  }
 
 
 
@@ -52,6 +57,7 @@ const Start = () => {
         }}
         validationSchema={schema}
         onSubmit={({ name, description }) => {
+         
 
           let candidatesError = "";
 
@@ -68,8 +74,16 @@ const Start = () => {
           setError(candidatesError);
 
           if (candidatesError === "") {
+            const formData = {
+              name,
+              description,
+              candidates,
+              electionStarted,
+              startDate: electionStarted ? null : startDate,
+              endDate: electionStarted ? null : endDate,
+            };
             axios
-              .post("/polls/start", { name, description, candidates,startDate,endDate })
+              .post("/polls/start", formData)
               .then((_) => {
                 window.location.reload();
               })
@@ -189,29 +203,31 @@ const Start = () => {
               <button
                 className="login-button button-primary"
                 type="button"
-                onClick={handleScheduleElection}
+                // onClick={handleScheduleElection}
+                onClick={() => {
+                  handleScheduleElection();
+                  handleSubmit();
+                }}
               >
                 Schedule Election
               </button>
             </div>
 
 
-            <button className="login-button button-primary" type="submit">
+            <button className="login-button button-primary" 
+            // type="submit"
+            type="button"
+            onClick={() => {
+              handleStartElectionNow();
+              handleSubmit();
+            }}
+            >
               Start Election Now
             </button>
           </form>
         )}
       </Formik>
     </div>
-
-      {/* <div>
-      <h1>Start Election</h1>
-      {electionStarted ? (
-        <p>Election has started!</p>
-      ) : (
-        <p>Waiting for the start date...</p>
-      )}
-      </div> */}
       </>
   );
 };
