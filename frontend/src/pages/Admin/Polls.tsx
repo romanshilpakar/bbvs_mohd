@@ -9,6 +9,7 @@ const Polls = () => {
   const [data, setData] = useState({ name: "", description: "", votes: {} ,electionStarted:false,startDate:Date,endDate:Date });
 
 
+
   useEffect(() => {
     axios.get("/polls/").then((res) => {
       console.log("response:",res.data);
@@ -16,6 +17,56 @@ const Polls = () => {
       setLoading(false);
     });
   }, []);
+
+  useEffect(() => {
+    const checkAutostart = async () => {
+      if (!data.electionStarted && data.startDate) {
+        const currentDate = new Date();
+        const startsDate = new Date(data.startDate as any as string);
+
+        if (currentDate > startsDate) {
+          console.log("election started");
+          try {
+            await axios.post("/polls/autostartelection");
+            axios.get("/polls/").then((res) => {
+              setData(res.data);
+            });      
+            window.location.reload() 
+          } catch (error) {
+            console.error("Error autostarting election:", error);
+          }
+        }
+      }
+    };
+
+    // Check autostart every 10 seconds
+    const autostartInterval = setInterval(checkAutostart, 5000);
+
+    return () => {
+      clearInterval(autostartInterval);
+    };
+  }, [data.electionStarted, data.startDate]);
+
+  useEffect(() => {
+    const checkAutoEnd = async () => {
+      if (data.electionStarted && data.endDate) {
+        const currentDate = new Date();
+        const endsDate = new Date(data.endDate as any as string);
+
+        if (endsDate < currentDate) {
+          endElection();
+        }
+      }
+    };
+
+    // Check autostart every 10 seconds
+    const autostartInterval = setInterval(checkAutoEnd, 5000);
+
+    return () => {
+      clearInterval(autostartInterval);
+    };
+  }, [data.electionStarted, data.endDate]);
+
 
   const endElection = () => {
     axios

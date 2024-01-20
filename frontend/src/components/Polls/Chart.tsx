@@ -33,6 +33,13 @@ const Chart = (props: ChartProps) => {
       .then((res) => {
         // console.log("data:",res.data)
         setProfiles(res.data)
+        // const modifiedData = {
+        //   ...res.data,
+        //   // Set votes object with 0 for all candidates
+        //   votes: Object.fromEntries(Object.keys(res.data.votes).map(candidate => [candidate, 0]))
+        // };
+
+        // setProfiles(modifiedData);
         
       })
       .catch((err) => console.log({ err }));
@@ -140,12 +147,7 @@ const Chart = (props: ChartProps) => {
         <div className="buttons-wrapper">{getButtons()}</div>
       ) : (
         null
-        // <div style={{ marginTop: '10px' }}>Election starts on {profiles?.startDate}</div>
       )}
-
-      {/* {!profiles?.electionStarted &&
-      <div style={{ marginTop: '10px' }}>Election ends on {profiles?.endDate}</div>
-      } */}
     </div>
   );
 };
