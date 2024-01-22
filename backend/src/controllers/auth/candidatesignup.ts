@@ -37,12 +37,17 @@ export default async (req: Request, res: Response) => {
   }
 
   const existingUser = await userModel.findOne({ email: req.body.email });
+  const existingUserName = await userModel.findOne({ name: req.body.name });
   const lastUser = await userModel.findOne().sort({ _id: -1 });
   const lastUserId = lastUser?.id;
 
   if (existingUser) {
     return res.status(409).send({ error: "User already exists." });
   }
+  if (existingUserName) {
+    return res.status(409).send({ error: "Name already taken." });
+  }
+
 
   const newUser = new userModel();
   newUser.id = lastUserId + 1;
