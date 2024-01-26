@@ -32,19 +32,19 @@ export default () => {
         { name: "Home", link: "/" },
         { name: "Verify Voters", link: "/users" },
         { name: "Verify Candidates", link: "/candidates" },
-        { name: "All Election", link: "/previouselection" },
+        { name: "Search Past Election", link: "/previouselection" },
         { name: "Profile", link: "/profile" },
       ];
 
       const userMenu = [
         { name: "Polls", link: "/" },
-        { name: "All Election", link: "/previouselection" },
+        { name: "Search Past Election", link: "/previouselection" },
         { name: "Profile", link: "/profile" },
       ];
 
       const candidateMenu = [
         { name: "Polls", link: "/" },
-        { name: "All Election", link: "/previouselection" },
+        { name: "Search Past Election", link: "/previouselection" },
         { name: "Profile", link: "/profile" },
       ];
 
