@@ -1,6 +1,8 @@
 import { Router } from "express";
 import multer from "multer";
 import loginController from "../controllers/auth/login";
+import adminloginController from "../controllers/auth/adminlogin"
+import candidateloginController from "../controllers/auth/candidatelogin"
 import adminController from "../controllers/auth/addadmin";
 import checkController from "../controllers/auth/check";
 import logoutController from "../controllers/auth/logout";
@@ -14,6 +16,8 @@ import resetPasswordController from "../controllers/auth/resetpassword";
 const router = Router();
 
 router.post("/login", loginController);
+router.post("/adminlogin", adminloginController);
+router.post("/candidatelogin", candidateloginController);
 router.post("/addadmin", adminController);
 router.post("/check", checkController);
 router.post("/logout", logoutController);

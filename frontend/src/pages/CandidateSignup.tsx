@@ -166,7 +166,7 @@ const CandidateSignup = (): JSX.Element => {
           <div className="form-info-text">Already have an account?</div>
 
           <button
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/candidatelogin")}
             className="button-secondary"
             type="button"
           >

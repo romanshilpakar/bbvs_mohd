@@ -32,7 +32,7 @@ export default async (req: Request, res: Response) => {
 
   // throws error if user with provided email not found
    try {
-    user = await userModel.findOne({ email: req.body.email, admin:false, candidate:false });
+    user = await userModel.findOne({ email: req.body.email, admin:true, candidate:false });
     console.log("user Found")
   } catch (error: any) {
     return res.status(404).send(error);
@@ -40,7 +40,7 @@ export default async (req: Request, res: Response) => {
 
   // If no user with the provided email is found
   if (!user) {
-    return res.status(404).send("Voter not found");
+    return res.status(404).send("Admin not found");
   }
 
   if (!user.verified) return res.status(400).send("Not verified");

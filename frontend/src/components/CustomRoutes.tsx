@@ -16,6 +16,8 @@ import AdminVerifyPage from "../pages/Admin/Verify";
 import ForgotPassword from "../pages/ForgotPassword";
 import ResetPassword from "../pages/ResetPassword";
 import CandidateSignup from "../pages/CandidateSignup";
+import AdminLogin from "../pages/AdminLogin";
+import CandidateLogin from "../pages/CandidateLogin";
 
 export default () => {
   const authContext = useContext(AuthContext);
@@ -93,6 +95,8 @@ export default () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/adminlogin" element={<AdminLogin />} />
+          <Route path="/candidatelogin" element={<CandidateLogin />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/candidatesignup" element={<CandidateSignup />} />    
           <Route path="/view" element={<View />} />
