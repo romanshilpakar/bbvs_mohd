@@ -12,7 +12,7 @@ const schema = Yup.object().shape({
   password: Yup.string().min(3).required("Required"),
 });
 
-const Login = (props: RouteProps): JSX.Element => {
+const AdminLogin = (props: RouteProps): JSX.Element => {
   const navigate = useNavigate();
   const authContext = useContext(AuthContext);
   const [error, setError] = useState<any>("");
@@ -23,7 +23,7 @@ const Login = (props: RouteProps): JSX.Element => {
     <div>
       <LoginLayout error={error}>
         <div className="form-container">
-        <h3>Voter Login</h3>
+        <h3>Admin Login</h3>
           <Formik
             initialValues={{
               email: "",
@@ -32,7 +32,7 @@ const Login = (props: RouteProps): JSX.Element => {
             validationSchema={schema}
             onSubmit={(values) => {
               axios
-                .post("/auth/login", { ...values })
+                .post("/auth/adminlogin", { ...values })
                 .then((res) => {
                   authContext.authenticate(res.data.user, res.data.accessToken);
                 })
@@ -100,23 +100,23 @@ const Login = (props: RouteProps): JSX.Element => {
           >Candidate Login?</div>
 
         <div 
-          onClick={() => navigate("/adminlogin")}
+          onClick={() => navigate("/login")}
           className="form-info-text"
           style={{ cursor: "pointer" }}     
-          >Admin Login?</div>
+          >Voter Login?</div>
           
           
           {/* <hr /> */}
-          <button
+          {/* <button
             onClick={() => navigate("/signup")}
             className="button-secondary"
           >
             Create a New Account
-          </button>
+          </button> */}
         </div>
       </LoginLayout>
     </div>
   );
 };
 
-export default Login;
+export default AdminLogin;
