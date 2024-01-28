@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-const API_KEY = "mongodb://localhost:27017/bbvstest";
+const API_KEY = "mongodb+srv://admin:admin@cluster0.ofxuauf.mongodb.net/bbvs";
 
 
 
